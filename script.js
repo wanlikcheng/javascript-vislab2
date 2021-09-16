@@ -22,17 +22,25 @@ function filterData(category) {
 	.then(data => {
 		attractions = data;
 		console.log('Attractions: ', attractions);
+		
 
 		// sort attractions
 		attractions.sort(function(a, b) {
 			return parseFloat(b.Visitors) - parseFloat(a.Visitors);
 		  });
 		console.log("Sorted Attractions: ", attractions);
+		
+		let filtered = attractions;
+
+		if(category &&  category != "all") {
+			filtered = filtered.filter(function(row, index) {
+				return row.Category == category;
+			});
+		}
 
 		// slice attractions
-		const firstFiveAttractions = attractions.slice(0, 5);
-		console.log("Top 5 attractions by visitors: ", firstFiveAttractions);
-		renderBarChart(firstFiveAttractions);
+		const firstFiveAttractions = filtered.slice(0, 5);
+		console.log("Top 5 attractions by visitors: ", filtered);
 
 		// render
 		renderBarChart(firstFiveAttractions);
@@ -42,9 +50,12 @@ function filterData(category) {
 
 // TODO: Define an event listener for the dropdown menu
 //       Call filterData with the selected category
-let element = document.querySelector('#attraction-category');
-element.addEventListener('change', filterData(element), false);
-document.getElementById('attraction-category').onchange = (function (event) {
-	alert("The event is: " + "on" + event.type);
-	filterData(element);
-});
+var element = document.querySelector('#attraction-category');
+filterData(element);
+var display = filterData(element);
+element.addEventListener('change', event => {
+	// event.target.value
+	console.log(event);
+	console.log(event.target.value);
+	filterData(event.target.value);
+})
