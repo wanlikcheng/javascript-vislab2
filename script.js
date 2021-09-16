@@ -9,7 +9,6 @@ fetch('attractions.json')
 	console.log('Attractions: ', attractions);
 });
 
-
 function filterData(category) {
 
 	/* **************************************************
@@ -52,7 +51,7 @@ function filterData(category) {
 
 // TODO: Define an event listener for the dropdown menu
 //       Call filterData with the selected category
-filterData(attractions);
+
 var element = document.querySelector('#attraction-category');
 
 element.addEventListener('change', event => {
